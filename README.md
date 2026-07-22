@@ -1,6 +1,51 @@
-# Policy Transparency RAG Orchestrator
+# PoliScope
 
-This project delivers a full-stack transparency explorer for US legislation that is powered by a LangGraph-based Retrieval-Augmented Generation (RAG) orchestrator. The frontend (Vite + React + shadcn/ui) streams orchestrated answers, ranked bill cards, and influence overlays. The backend (Express + LangGraph) executes a multi-tool workflow that calls the Congress.gov, GovInfo, Senate LDA, and OpenFEC APIs to ground every response in primary-source data.
+**A source-grounded legislative intelligence platform for US federal legislation.**
+
+PoliScope is a full-stack transparency explorer powered by a LangGraph-based
+Retrieval-Augmented Generation (RAG) orchestrator. The frontend (Vite + React + shadcn/ui)
+streams orchestrated answers, ranked bill cards, and influence overlays. The backend
+(Express + LangGraph) executes a multi-tool workflow that calls the Congress.gov, GovInfo,
+Senate LDA, and OpenFEC APIs to ground every response in primary-source data.
+
+Every answer traces back to a primary government source. The orchestrator is explicitly
+constrained to *descriptive* output: a guardrail node blocks advisory or persuasive
+language, so the system reports what legislation says and who influenced it, rather than
+arguing a position.
+
+> **Origin:** Built as a hackathon project at **HackHarvard 2025** (October 2025).
+> The `hackathon-demo` tag marks the state submitted for judging; later commits are
+> post-hackathon cleanup. See [contributors](https://github.com/ericyan534-dev/poliscope/graphs/contributors)
+> for the full commit record.
+
+## What actually works today
+
+Implemented and functional (given API keys):
+
+- **Bill search and retrieval** over Congress.gov, with pagination and calibrated
+  confidence scoring.
+- **"Policy DNA" version tracking** — downloads GovInfo XML/HTML across bill versions and
+  computes textual deltas via `diff-match-patch`.
+- **Influence lookup** — Senate LDA lobbying disclosures and OpenFEC campaign-finance
+  totals, mapped to bill sponsors.
+- **Grounded answer composition** through Vertex AI Gemini, with inline citations.
+- **Guardrail enforcement** combining regex detection with model-based validation.
+- **Graceful degradation** — missing credentials produce deterministic summaries and
+  explanatory notes in the UI rather than failures.
+
+Not implemented — these are architectural proposals, described under
+[Extending the RAG System](#extending-the-rag-system): a vector + BM25 hybrid store,
+Vertex embedding/reranking, Cloud Logging observability, a Firestore session store, and a
+Neo4j graph backend.
+
+## Known limitations
+
+- Retrieval currently queries the Congress.gov API directly; there is no vector index, so
+  recall depends on that API's own search behaviour.
+- Test coverage is limited to lint, build verification, and manual API smoke tests. There
+  is no automated test suite against fixture data.
+- Data coverage follows the upstream APIs — lobbying and finance records are only as
+  complete and current as Senate LDA and OpenFEC publish them.
 
 ## Architecture
 
