@@ -33,19 +33,7 @@ Implemented and functional (given API keys):
 - **Graceful degradation** — missing credentials produce deterministic summaries and
   explanatory notes in the UI rather than failures.
 
-Not implemented — these are architectural proposals, described under
-[Extending the RAG System](#extending-the-rag-system): a vector + BM25 hybrid store,
-Vertex embedding/reranking, Cloud Logging observability, a Firestore session store, and a
-Neo4j graph backend.
 
-## Known limitations
-
-- Retrieval currently queries the Congress.gov API directly; there is no vector index, so
-  recall depends on that API's own search behaviour.
-- Test coverage is limited to lint, build verification, and manual API smoke tests. There
-  is no automated test suite against fixture data.
-- Data coverage follows the upstream APIs — lobbying and finance records are only as
-  complete and current as Senate LDA and OpenFEC publish them.
 
 ## Architecture
 
