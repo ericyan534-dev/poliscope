@@ -14,9 +14,7 @@ language, so the system reports what legislation says and who influenced it, rat
 arguing a position.
 
 > **Origin:** Built as a hackathon project at **HackHarvard 2025** (October 2025).
-> The `hackathon-demo` tag marks the state submitted for judging; later commits are
-> post-hackathon cleanup. See [contributors](https://github.com/ericyan534-dev/poliscope/graphs/contributors)
-> for the full commit record.
+> The `hackathon-demo` tag marks the state submitted for judging.
 
 ## What actually works today
 
